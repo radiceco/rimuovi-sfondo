@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="DA BackGround - Remove image backgrounds instantly with AI."
+    >
+
+    <title>DA BackGround — AI Background Remover</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            background: #08090d;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            width: 100%;
+            padding: 22px 7%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+
+            background: rgba(8,9,13,0.8);
+
+            backdrop-filter: blur(15px);
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: #7c5cff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #a7a9b5;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .nav-button {
+            background: #7c5cff;
+            color: white !important;
+
+            padding: 10px 18px;
+
+            border-radius: 9px;
+        }
+
+        /* HERO */
+
+        .hero {
+            max-width: 1100px;
+            margin: auto;
+
+            padding:
+                100px 20px
+                80px;
+
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+
+            padding: 8px 14px;
+
+            border-radius: 50px;
+
+            background: rgba(124,92,255,0.12);
+
+            border: 1px solid rgba(124,92,255,0.3);
+
+            color: #b8aaff;
+
+            font-size: 13px;
+
+            margin-bottom: 25px;
+        }
+
+        .hero h1 {
+            font-size: clamp(45px, 7vw, 82px);
+
+            line-height: 0.95;
+
+            letter-spacing: -4px;
+
+            max-width: 900px;
+
+            margin: auto;
+        }
+
+        .gradient {
+            background:
+                linear-gradient(
+                    90deg,
+                    #8b6cff,
+                    #c6b9ff,
+                    #7c5cff
+                );
+
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-description {
+            max-width: 650px;
+
+            margin: 30px auto;
+
+            color: #9ca0ad;
+
+            font-size: 18px;
+        }
+
+        /* UPLOAD BOX */
+
+        .upload-wrapper {
+            max-width: 750px;
+
+            margin: 50px auto 0;
+        }
+
+        .upload-box {
+
+            border: 2px dashed #373842;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    rgba(124,92,255,0.10),
+                    rgba(255,255,255,0.02)
+                );
+
+            min-height: 330px;
+
+            border-radius: 25px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+            padding: 40px;
+        }
+
+        .upload-box:hover {
+
+            border-color: #7c5cff;
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 20px 60px
+                rgba(124,92,255,0.15);
+        }
+
+        .upload-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .upload-box h3 {
+            font-size: 23px;
+            margin-bottom: 8px;
+        }
+
+        .upload-box p {
+            color: #777b89;
+            margin-bottom: 25px;
+        }
+
+        .upload-button {
+
+            background: #7c5cff;
+
+            color: white;
+
+            border: none;
+
+            padding: 15px 30px;
+
+            border-radius: 10px;
+
+            font-size: 16px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 10px 30px
+                rgba(124,92,255,0.25);
+
+            transition: 0.2s;
+        }
+
+        .upload-button:hover {
+            background: #6d4df0;
+            transform: scale(1.03);
+        }
+
+        .supported {
+            margin-top: 18px;
+
+            color: #626572;
+
+            font-size: 12px;
+        }
+
+        /* FEATURES */
+
+        .features {
+
+            max-width: 1100px;
+
+            margin: auto;
+
+            padding: 50px 20px 100px;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+        }
+
+        .feature {
+
+            background: #111218;
+
+            border: 1px solid #20212a;
+
+            padding: 25px;
+
+            border-radius: 16px;
+        }
+
+        .feature-icon {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .feature h3 {
+            font-size: 16px;
+            margin-bottom: 7px;
+        }
+
+        .feature p {
+            color: #777b89;
+            font-size: 13px;
+        }
+
+        /* HOW IT WORKS */
+
+        .section {
+
+            max-width: 1100px;
+
+            margin: auto;
+
+            padding: 100px 20px;
+
+            text-align: center;
+        }
+
+        .section-label {
+
+            color: #8b6cff;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 15px;
+        }
+
+        .section h2 {
+
+            font-size: 42px;
+
+            letter-spacing: -2px;
+
+            margin-bottom: 50px;
+        }
+
+        .steps {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 25px;
+        }
+
+        .step {
+
+            background: #111218;
+
+            border: 1px solid #20212a;
+
+            border-radius: 18px;
+
+            padding: 35px;
+        }
+
+        .step-number {
+
+            width: 45px;
+            height: 45px;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            margin: 0 auto 20px;
+
+            background: #7c5cff;
+
+            font-weight: 800;
+        }
+
+        .step p {
+            color: #777b89;
+            font-size: 14px;
+        }
+
+        /* BEFORE / AFTER */
+
+        .showcase {
+
+            max-width: 900px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 20px;
+        }
+
+        .showcase-card {
+
+            background: #111218;
+
+            border: 1px solid #20212a;
+
+            border-radius: 18px;
+
+            padding: 25px;
+
+        }
+
+        .showcase-placeholder {
+
+            height: 250px;
+
+            border-radius: 12px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            background: #1a1b22;
+
+            color: #626572;
+
+            font-size: 14px;
+        }
+
+        /* FAQ */
+
+        .faq {
+
+            max-width: 750px;
+
+            margin: auto;
+
+            text-align: left;
+        }
+
+        details {
+
+            background: #111218;
+
+            border: 1px solid #20212a;
+
+            padding: 20px;
+
+            border-radius: 12px;
+
+            margin-bottom: 12px;
+
+            cursor: pointer;
+        }
+
+        summary {
+            font-weight: 700;
+        }
+
+        details p {
+
+            color: #858894;
+
+            margin-top: 12px;
+
+            font-size: 14px;
+        }
+
+        /* FOOTER */
+
+        footer {
+
+            border-top: 1px solid #20212a;
+
+            padding: 40px 20px;
+
+            text-align: center;
+
+            color: #5f626d;
+
+            font-size: 13px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            .nav-links a:not(.nav-button) {
+                display: none;
+            }
+
+            .features {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .showcase {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+
+        }
+
+        @media (max-width: 500px) {
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding-top: 70px;
+            }
+
+            .upload-box {
+                min-height: 280px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVIGATION -->
+
+<nav>
+
+    <div class="logo">
+        DA <span>BackGround</span>
+    </div>
+
+    <div class="nav-links">
+
+        <a href="#how-it-works">
+            How it works
+        </a>
+
+        <a href="#features">
+            Features
+        </a>
+
+        <a href="#faq">
+            FAQ
+        </a>
+
+        <a
+            href="#upload"
+            class="nav-button"
+        >
+            Remove Background
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="badge">
+        ✨ AI-Powered Background Removal
+    </div>
+
+    <h1>
+
+        Remove Any Background
+
+        <br>
+
+        <span class="gradient">
+            In One Click.
+        </span>
+
+    </h1>
+
+    <p class="hero-description">
+
+        Remove image backgrounds automatically with AI.
+        Fast, simple and completely hassle-free.
+
+    </p>
+
+
+    <!-- UPLOAD -->
+
+    <div
+        class="upload-wrapper"
+        id="upload"
+    >
+
+        <label
+            class="upload-box"
+            for="fileInput"
+        >
+
+            <div class="upload-icon">
+                📸
+            </div>
+
+            <h3>
+                Upload your image
+            </h3>
+
+            <p>
+                Drag & drop your image here or browse your files
+            </p>
+
+            <button
+                class="upload-button"
+                type="button"
+                onclick="document.getElementById('fileInput').click()"
+            >
+                + Add Image
+            </button>
+
+            <div class="supported">
+                Supports JPG, PNG and WEBP
+            </div>
+
+        </label>
+
+        <input
+            type="file"
+            id="fileInput"
+            accept="image/png,image/jpeg,image/webp"
+            hidden
+        >
+
+    </div>
+
+</section>
+
+
+<!-- FEATURES -->
+
+<section
+    class="features"
+    id="features"
+>
+
+    <div class="feature">
+
+        <div class="feature-icon">
+            ⚡
+        </div>
+
+        <h3>
+            Fast
+        </h3>
+
+        <p>
+            Remove backgrounds in just a few seconds.
+        </p>
+
+    </div>
+
+
+    <div class="feature">
+
+        <div class="feature-icon">
+            ✨
+        </div>
+
+        <h3>
+            AI Powered
+        </h3>
+
+        <p>
+            Smart AI automatically detects the subject.
+        </p>
+
+    </div>
+
+
+    <div class="feature">
+
+        <div class="feature-icon">
+            🔒
+        </div>
+
+        <h3>
+            Private
+        </h3>
+
+        <p>
+            Your images are handled securely.
+        </p>
+
+    </div>
+
+
+    <div class="feature">
+
+        <div class="feature-icon">
+            💎
+        </div>
+
+        <h3>
+            High Quality
+        </h3>
+
+        <p>
+            Get clean and professional results.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- HOW IT WORKS -->
+
+<section
+    class="section"
+    id="how-it-works"
+>
+
+    <div class="section-label">
+        Simple process
+    </div>
+
+    <h2>
+        How it works
+    </h2>
+
+
+    <div class="steps">
+
+
+        <div class="step">
+
+            <div class="step-number">
+                1
+            </div>
+
+            <h3>
+                Upload
+            </h3>
+
+            <p>
+                Choose an image from your device.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                2
+            </div>
+
+            <h3>
+                AI Removes Background
+            </h3>
+
+            <p>
+                Our AI automatically separates the subject from the background.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                3
+            </div>
+
+            <h3>
+                Download
+            </h3>
+
+            <p>
+                Download your transparent PNG instantly.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- BEFORE / AFTER -->
+
+<section class="section">
+
+    <div class="section-label">
+        See the difference
+    </div>
+
+    <h2>
+        Before & After
+    </h2>
+
+
+    <div class="showcase">
+
+
+        <div class="showcase-card">
+
+            <h3>
+                Original
+            </h3>
+
+            <div class="showcase-placeholder">
+                Your original image
+            </div>
+
+        </div>
+
+
+        <div class="showcase-card">
+
+            <h3>
+                Background Removed
+            </h3>
+
+            <div class="showcase-placeholder">
+                Transparent result
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- FAQ -->
+
+<section
+    class="section"
+    id="faq"
+>
+
+    <div class="section-label">
+        Questions
+    </div>
+
+    <h2>
+        Frequently Asked Questions
+    </h2>
+
+
+    <div class="faq">
+
+
+        <details>
+
+            <summary>
+                Is DA BackGround free?
+            </summary>
+
+            <p>
+                Yes. The goal of DA BackGround is to provide
+                simple and accessible background removal.
+            </p>
+
+        </details>
+
+
+        <details>
+
+            <summary>
+                What image formats are supported?
+            </summary>
+
+            <p>
+                JPG, PNG and WEBP images are supported.
+            </p>
+
+        </details>
+
+
+        <details>
+
+            <summary>
+                Do I need to install anything?
+            </summary>
+
+            <p>
+                No. DA BackGround is designed to work directly
+                from your web browser.
+            </p>
+
+        </details>
+
+
+        <details>
+
+            <summary>
+                Can I use it on my phone?
+            </summary>
+
+            <p>
+                Yes. The website is fully responsive and
+                works on modern mobile browsers.
+            </p>
+
+        </details>
+
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <p>
+        © 2026 DA BackGround. All rights reserved.
+    </p>
+
+    <p>
+        AI-powered image background removal.
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>
